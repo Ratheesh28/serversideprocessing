@@ -6,30 +6,33 @@ To design a website to perform mathematical calculations in server side.
 ## DESIGN STEPS:
 
 ### Step 1:
+clone the repositryfrom github
 
 
 
 ### Step 2:
+create Django Admin project
 
 
 
 ### Step 3:
-
+create a new app
 
 
 ### Step 4:
-
+create python programs for views and urls
 
 
 ### Step 5:
-
+create a HTML file of forms
 
 
 ### Step 6:
-
 Publish the website in the given URL.
 
 ## PROGRAM :
+```
+math.html
 <html>
 <head>
 <meta charset='utf-8'>
@@ -94,13 +97,54 @@ Area : <input type="text" name="area" value="{{area}}"></input>m<sup>2</sup><br/
 </body>
 </html>
 
-## OUTPUT:
-![output](serversideprocessing.png)
+views.py
 
+from django.shortcuts import render
+from django.template  import loader
+from django.shortcuts import render
+# Create your views here.
+
+
+
+
+def triarea(request):
+    context={}
+    context['area'] = "0"
+    context['h'] = "0"
+    context['b'] = "0"
+    if request.method == 'POST':
+        print("POST method is used")
+        h = request.POST.get('height','0')
+        b = request.POST.get('breadth','0')
+        print('request=',request)
+        print('Height=',h)
+        print('Breadth=',b)
+        area = 0.5*int(h) * int(b)
+        context['area'] = area
+        context['h'] = h
+        context['b'] = b
+        print('Area=',area)
+    return render(request,'myapp/math.html',context)
+    
+    urls.py
+
+    from django.contrib import admin
+
+from django.urls import path
+
+from myapp import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('areaoftriangle/',views.triarea,name="areaoftriangle"),
+    path('',views.triarea,name="areaoftriangleroot")
+]
+```
+## OUTPUT:
+![OUTPUT](./out.png)
 
 ### Home Page:
-
+![serversideprocessing](./serversideprocessing.png)
 
 ## Result:
-This project executed successfully
-
+The project for implementing server side processing is completed successfully
